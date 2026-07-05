@@ -1,22 +1,20 @@
 {
-  "brideName": "Bride Name",
-  "groomName": "Groom Name",
+  "brideName": "Riya",
+  "groomName": "Subhradip",
 
-  "introText": "Together with our families...",
+  "weddingDate": "25 November, 2026",
+  "weddingTime": "06:00 PM",
 
-  "weddingDate": "20 December 2026",
-  "weddingTime": "07:00 PM",
-
-  "receptionDate": "22 December 2026",
+  "receptionDate": "27 November, 2026",
   "receptionTime": "06:30 PM",
 
   "venue": {
     "name": "Wedding Venue",
-    "address": "Full venue address",
-    "googleMapUrl": "https://maps.google.com/..."
+    "address": "Bhim Rao Ambedkar, Sreepally, </br> Kolkata, North Barrackpur, </br> West Bengal 743122",
+    "googleMapUrl": "https://www.google.com/maps/search/?api=1&query=22.7814255,88.3722093"
   },
 
-  "invitationText": "Invitation message...",
+  "invitationText": "Together with our parents, grandparents, and the entire extended family, we cordially invite you to be a part of our beautiful new beginning.<br><br>As we take our sacred vows amidst the sounding of the Shankha and the blessings of our elders, your esteemed presence and good wishes are what will truly make our celebration complete.<br><br>Please join us with your family to share our joy, enjoy the festivities, and bless us as we embark on this lifelong journey of love and togetherness.",
 
   "thankYouText": "Thank you for being part of our happiness.",
 
