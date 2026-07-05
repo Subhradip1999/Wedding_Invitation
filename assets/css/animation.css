@@ -1,0 +1,491 @@
+/* =====================================================
+   GLOBAL ANIMATIONS
+===================================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes floatUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.float-up {
+    animation: floatUp 1s ease forwards;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.scale-in {
+    animation: scaleIn .8s ease forwards;
+}
+/* =====================================================
+   ENVELOPE
+===================================================== */
+
+.envelope {
+    position: relative;
+    width: 500px;
+    height: 340px;
+    margin: auto;
+    perspective: 2000px;
+}
+
+/* back of envelope */
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+/* invitation */
+.letter {
+    position: absolute;
+    left: 50%;
+    bottom: 35px;
+    width: 82%;
+    transform: translateX(-50%);
+    z-index: 2;
+    opacity: 0;
+}
+
+/* front pocket */
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+/* flap */
+.flap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    transform-origin: top center;
+    z-index: 4;
+    backface-visibility: hidden;
+}
+
+/* wax seal */
+.wax-seal {
+    position: absolute;
+    width: 95px;
+    left: 50%;
+    top: 145px;
+    transform: translateX(-50%);
+    z-index: 5;
+    transition: opacity .4s ease;
+}
+
+/* ---------- OPEN STATE ---------- */
+
+.envelope.open .wax-seal{
+    opacity:0;
+}
+
+.envelope.open .flap{
+    animation: flapOpen 1.2s ease forwards;
+}
+
+.envelope.open .letter{
+    animation: letterRise 1.6s ease forwards;
+}
+
+@keyframes flapOpen{
+
+    0%{
+        transform:rotateX(0deg);
+    }
+
+    100%{
+        transform:rotateX(-180deg);
+    }
+
+}
+
+@keyframes letterRise{
+
+    0%{
+        transform:translate(-50%,0);
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translate(-50%,-220px);
+        opacity:1;
+    }
+
+}
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+.reveal {
+
+    opacity: 0;
+    transform: translateY(80px);
+    transition: all 1s ease;
+
+}
+
+.reveal.active {
+
+    opacity: 1;
+    transform: translateY(0);
+
+}
+/* =====================================================
+   SCRATCH CARD
+===================================================== */
+
+@keyframes revealDate {
+
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+.date-revealed {
+
+    animation: revealDate .8s ease;
+
+}
+/* =====================================================
+   FLOWER BLAST
+===================================================== */
+
+@keyframes flowerBlast {
+
+    0% {
+
+        transform: 
+			translate(-50%, -50%)
+            translate(0,0)
+            scale(0);
+        opacity: 1;
+
+    }
+
+    40% {
+
+        transform: scale(1.2);
+
+    }
+
+    100% {
+
+        transform: 
+			translate(-50%, -50%)
+            translate(var(--x), var(--y))
+            scale(2.5);
+        opacity: 0;
+
+    }
+
+}
+
+.flower-blast {
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    animation: flowerBlast 1s ease forwards;
+
+}
+/* =====================================================
+   PETAL FALL
+===================================================== */
+
+@keyframes petalFall {
+
+    0% {
+
+        transform: translateY(-100px) rotate(0deg);
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform: translateY(120vh) rotate(720deg);
+
+        opacity: .8;
+
+    }
+
+}
+
+.petal {
+
+    position: fixed;
+
+    top: -50px;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50% 50% 50% 0;
+
+    pointer-events: none;
+
+    animation-name: petalFall;
+
+    animation-timing-function: linear;
+
+    animation-iteration-count: infinite;
+
+}
+/* =====================================================
+   PHOTO SLIDE
+===================================================== */
+
+.photo-card {
+
+    opacity: 0;
+
+    transform: translateY(120px);
+
+    transition: all 1s ease;
+
+}
+
+.photo-card.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+/* =====================================================
+   VENUE
+===================================================== */
+
+@keyframes cardPop {
+
+    from {
+
+        transform: scale(.8);
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        transform: scale(1);
+
+        opacity: 1;
+
+    }
+
+}
+
+.venue-card {
+
+    animation: cardPop .8s ease;
+
+}
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.btn-theme {
+
+    transition: .35s;
+
+}
+
+.btn-theme:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 15px 30px rgba(0,0,0,.2);
+
+}
+/* =====================================================
+   THANK YOU
+===================================================== */
+
+@keyframes thankYou {
+
+    from {
+
+        opacity: 0;
+
+        letter-spacing: 10px;
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        letter-spacing: 2px;
+
+    }
+
+}
+
+.thank-you {
+
+    animation: thankYou 1.2s ease;
+
+}
+/* =====================================================
+   SOFT GLOW
+===================================================== */
+
+@keyframes glow {
+
+    0% {
+
+        background-position: 0% 50%;
+
+    }
+
+    50% {
+
+        background-position: 100% 50%;
+
+    }
+
+    100% {
+
+        background-position: 0% 50%;
+
+    }
+
+}
+
+.glow-bg {
+
+    background-size: 300% 300%;
+
+    animation: glow 12s ease infinite;
+
+}
+
+
+#envelope {
+    cursor: pointer;
+    transition: transform .8s ease;
+    transform-origin: center;
+}
+
+#envelope.opening {
+    transform: scale(.95);
+}
+
+#hero.opened {
+    opacity: .98;
+}
+
+.letter-card {
+    opacity: 0;
+    transform: translateY(80px);
+}
+
+.letter-card.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 1.2s ease;
+}
+
+@keyframes floatEnvelope{
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+}
+
+@keyframes pulseSeal{
+
+    0%,100%{
+
+        transform:translateX(-50%) scale(1);
+
+    }
+
+    50%{
+
+        transform:translateX(-50%) scale(1.08);
+
+    }
+
+}
+
+@keyframes fadeInstruction{
+
+    0%,100%{
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        opacity:.4;
+
+    }
+
+}

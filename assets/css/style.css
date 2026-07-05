@@ -1,0 +1,2226 @@
+/* ==========================================================
+   WEDDING INVITATION
+   STYLE.CSS
+   PART 1
+   Global Theme + Typography + Layout + Loader + Hero
+========================================================== */
+
+/* ==============================
+   GOOGLE FONT VARIABLES
+============================== */
+
+:root{
+
+    --burgundy:#6D0F2C;
+    --burgundy-dark:#4A071B;
+    --burgundy-light:#8A1E3D;
+
+    --ivory:#FFF9F4;
+    --cream:#F8F1EA;
+    --gold:#C9A227;
+
+    --text:#382B2B;
+    --light-text:#786868;
+
+    --white:#ffffff;
+
+    --shadow:
+        0 10px 35px rgba(0,0,0,.12);
+
+    --shadow-hover:
+        0 20px 55px rgba(0,0,0,.18);
+
+    --radius:22px;
+
+    --transition:.45s ease;
+
+}
+
+/* ==============================
+RESET
+============================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    background:var(--ivory);
+
+    color:var(--text);
+
+    overflow-x:hidden;
+
+    font-family:'Poppins',sans-serif;
+
+    position:relative;
+
+}
+
+/* ==============================
+BACKGROUND TEXTURE
+============================== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+
+        radial-gradient(circle at 15% 25%,
+        rgba(201,162,39,.05),
+        transparent 20%),
+
+        radial-gradient(circle at 85% 75%,
+        rgba(109,15,44,.05),
+        transparent 22%);
+
+    z-index:-3;
+
+}
+
+/* ==============================
+PETAL CANVAS
+============================== */
+
+#petalCanvas{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    pointer-events:none;
+
+    z-index:99;
+
+}
+
+/* ==============================
+SECTIONS
+============================== */
+
+.section{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:
+
+        100px
+        0;
+
+    position:relative;
+
+}
+
+/* ==============================
+HEADINGS
+============================== */
+
+h1{
+
+    font-family:'Great Vibes',cursive;
+
+    font-size:4rem;
+
+    color:var(--burgundy);
+
+}
+
+h2{
+
+    font-family:'Cinzel',serif;
+
+    font-size:2.2rem;
+
+    color:var(--burgundy);
+
+    margin-bottom:25px;
+
+}
+
+h3{
+
+    font-family:'Cinzel',serif;
+
+    color:var(--burgundy);
+
+}
+
+p{
+
+    color:var(--light-text);
+
+    font-size:1.05rem;
+
+    line-height:1.9;
+
+}
+
+/* ==============================
+SECTION TITLE
+============================== */
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+/* ==============================
+LINKS
+============================== */
+
+a{
+
+    text-decoration:none;
+
+}
+
+/* ==============================
+BUTTONS
+============================== */
+
+.btn{
+
+    background:var(--burgundy);
+
+    color:white;
+
+    border:none;
+
+    border-radius:50px;
+
+    padding:
+
+        14px
+        35px;
+
+    transition:var(--transition);
+
+    font-weight:600;
+
+}
+
+.btn:hover{
+
+    background:var(--burgundy-dark);
+
+    color:white;
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+/* ==============================
+SCROLL PROGRESS BAR
+============================== */
+
+#scrollProgress{
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    width:0;
+
+    height:6px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        var(--gold),
+
+        var(--burgundy)
+
+    );
+
+    z-index:9999;
+
+}
+
+/* ==============================
+LOADER
+============================== */
+
+#loader{
+
+    position:fixed;
+
+    inset:0;
+
+    background:var(--ivory);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:99999;
+
+}
+
+.loader-content{
+
+    text-align:center;
+
+}
+
+.loader-content h2{
+
+    font-size:2rem;
+
+    animation:pulse 2s infinite;
+
+}
+
+/* ==============================
+HERO
+============================== */
+
+.hero-section{
+
+    background:
+
+    linear-gradient(
+
+        180deg,
+
+        var(--cream),
+
+        var(--ivory)
+
+    );
+
+}
+
+/* ==============================
+ENVELOPE CONTAINER
+============================== */
+
+#envelopeContainer{
+	display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+
+}
+
+/* ==============================
+ENVELOPE
+============================== */
+
+#envelope{
+
+    position:relative;
+
+    width:360px;
+    height:240px;
+
+    perspective:1200px;
+
+    animation:floatEnvelope 4s ease-in-out infinite;
+
+}
+
+#envelope:hover{
+
+    transform:
+
+        scale(1.03);
+
+}
+
+#envelope img{
+
+    width:100%;
+
+}
+
+/* ==============================
+WAX SEAL
+============================== */
+
+#waxSeal{
+
+    position:absolute;
+
+    width:95px;
+
+    left:50%;
+
+    top:52%;
+
+    transform:
+
+        translate(-50%,-50%);
+
+}
+.envelope-back{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:#fdf7ef;
+
+    border-radius:8px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+}
+
+.envelope-pocket{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+    height:65%;
+
+    background:#f5ebdf;
+
+    clip-path:polygon(0 100%,50% 30%,100% 100%);
+
+    z-index:5;
+
+}
+
+.envelope-flap{
+
+    position:absolute;
+
+    top:0;
+
+    width:100%;
+    height:55%;
+
+    background:#efe3d5;
+
+    clip-path:polygon(0 0,50% 100%,100% 0);
+
+    transform-origin:top;
+
+    transition:1s;
+
+    z-index:15;
+
+}
+
+.letter{
+
+    position:absolute;
+
+    left:8%;
+
+    top:25px;
+
+    width:84%;
+
+    height:180px;
+
+    background:white;
+
+    border-radius:6px;
+
+    padding:25px;
+
+    text-align:center;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+
+    transition:1.2s;
+
+    z-index:2;
+
+}
+
+#waxSeal{
+
+    position:absolute;
+
+    left:50%;
+
+    top:78px;
+
+    transform:translateX(-50%);
+
+    width:65px;
+
+    height:65px;
+
+    background:url("../images/wax.png") center/contain no-repeat;
+
+    cursor:pointer;
+
+    z-index:20;
+
+    animation:pulseSeal 2s infinite;
+
+}
+
+.tap-text{
+
+    margin-top:35px;
+
+    color:#777;
+
+    letter-spacing:1px;
+
+    animation:fadeInstruction 2s infinite;
+
+}
+
+/* ==============================
+TAP TEXT
+============================== */
+
+.tap-text{
+
+    margin-top:30px;
+
+    color:var(--burgundy);
+
+    font-size:1.1rem;
+
+    animation:bounce 2s infinite;
+
+}
+
+/* ==============================
+LETTER
+============================== */
+
+.letter-card{
+
+    max-width:850px;
+
+    margin:auto;
+
+    padding:
+
+        70px
+        60px;
+
+    background:white;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    text-align:center;
+
+    position:relative;
+
+}
+
+/* Decorative Border */
+
+.letter-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:12px;
+
+    border:
+
+        1px solid
+
+        rgba(201,162,39,.4);
+
+    border-radius:18px;
+
+    pointer-events:none;
+
+}
+
+.subtitle{
+
+    margin:
+
+        25px
+        0;
+
+}
+
+.scroll-indicator{
+
+    margin-top:45px;
+
+    color:var(--burgundy);
+
+    font-weight:600;
+
+    animation:bounce 2s infinite;
+
+}
+
+/* ==============================
+GENERAL CARD
+============================== */
+
+.message-card,
+.venue-card{
+
+    background:white;
+
+    border-radius:var(--radius);
+
+    padding:
+
+        60px
+        50px;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ==============================
+DECORATIVE DIVIDER
+============================== */
+
+.decorative-divider{
+
+    width:120px;
+
+    height:3px;
+
+    margin:
+
+        30px auto;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            var(--gold),
+
+            transparent
+
+        );
+
+}
+
+/* ==============================
+FLOATING ORNAMENTS
+============================== */
+
+.ornament{
+
+    position:absolute;
+
+    opacity:.08;
+
+    z-index:-1;
+
+}
+
+/* ==============================
+GLASS EFFECT
+============================== */
+
+.glass{
+
+    background:
+
+        rgba(255,255,255,.55);
+
+    backdrop-filter:
+
+        blur(12px);
+
+    border:
+
+        1px solid
+
+        rgba(255,255,255,.3);
+
+}
+
+/* ==============================
+TEXT UTILITIES
+============================== */
+
+.gold{
+
+    color:var(--gold);
+
+}
+
+.burgundy{
+
+    color:var(--burgundy);
+
+}
+
+.center{
+
+    text-align:center;
+
+}
+
+/* ==============================
+IMAGE DEFAULTS
+============================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+/* ==============================
+CUSTOM SCROLLBAR
+============================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:var(--cream);
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--burgundy);
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--burgundy-dark);
+
+}
+
+/* ==============================
+SELECTION
+============================== */
+
+::selection{
+
+    background:var(--burgundy);
+
+    color:white;
+
+}
+
+/* ==============================
+ANIMATION PLACEHOLDER
+(Actual animations in animations.css)
+============================== */
+
+.fade-hidden{
+
+    opacity:0;
+
+}
+
+.fade-show{
+
+    opacity:1;
+
+}
+
+/* ==============================
+RESPONSIVE FOUNDATION
+============================== */
+
+@media(max-width:992px){
+
+    h1{
+
+        font-size:3.2rem;
+
+    }
+
+    h2{
+
+        font-size:2rem;
+
+    }
+
+    .letter-card{
+
+        padding:
+
+            55px
+            35px;
+
+    }
+
+    #envelope{
+
+        width:300px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .section{
+
+        padding:
+
+            70px
+            20px;
+
+    }
+
+    h1{
+
+        font-size:2.6rem;
+
+    }
+
+    h2{
+
+        font-size:1.7rem;
+
+    }
+
+    p{
+
+        font-size:.98rem;
+
+    }
+
+    .letter-card{
+
+        padding:
+
+            40px
+            28px;
+
+    }
+
+    #envelope{
+
+        width:260px;
+
+    }
+
+    #waxSeal{
+
+        width:72px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    h1{
+
+        font-size:2.15rem;
+
+    }
+
+    h2{
+
+        font-size:1.45rem;
+
+    }
+
+    .letter-card{
+
+        padding:
+
+            30px
+            20px;
+
+    }
+
+    #envelope{
+
+        width:220px;
+
+    }
+
+}
+
+/* ==========================================================
+   PART 2A-1
+   HERO + ENVELOPE + LETTER
+========================================================== */
+
+/* Hero background decorations */
+
+.hero-section{
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-section::before{
+    content:"";
+    position:absolute;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    background:rgba(201,162,39,.08);
+    top:-180px;
+    left:-180px;
+    filter:blur(30px);
+}
+
+.hero-section::after{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:rgba(109,15,44,.08);
+    right:-120px;
+    bottom:-120px;
+    filter:blur(35px);
+}
+
+/* Envelope */
+
+#envelope{
+    position:relative;
+    width:360px;
+    cursor:pointer;
+    transition:all .6s ease;
+    transform-origin:center;
+}
+
+#envelope:hover{
+    transform:translateY(-8px) scale(1.03);
+}
+
+.envelope-front{
+    position:relative;
+}
+
+.envelope-front img:first-child{
+    display:block;
+    width:100%;
+    border-radius:12px;
+    filter:drop-shadow(0 20px 35px rgba(0,0,0,.18));
+}
+
+#waxSeal{
+    position:absolute;
+    left:50%;
+    top:55%;
+    width:90px;
+    transform:translate(-50%,-50%);
+    transition:all .5s ease;
+    z-index:10;
+}
+
+#envelope:hover #waxSeal{
+    transform:translate(-50%,-50%) scale(1.08);
+}
+
+/* Opening state */
+
+#envelope.open{
+    animation:envelopeOpen .9s forwards;
+}
+
+#envelope.open #waxSeal{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.2);
+}
+
+/* Tap text */
+
+.tap-text{
+    font-size:1.05rem;
+    color:var(--burgundy);
+    font-weight:600;
+    letter-spacing:.6px;
+}
+
+/* Letter */
+
+#letterSection{
+    background:linear-gradient(
+        to bottom,
+        var(--ivory),
+        #ffffff
+    );
+}
+
+.letter-card{
+    position:relative;
+    overflow:hidden;
+}
+
+.letter-card::after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:rgba(201,162,39,.06);
+    right:-110px;
+    top:-110px;
+}
+
+#coupleName{
+    margin-bottom:10px;
+    letter-spacing:1px;
+}
+
+.subtitle{
+    color:var(--gold);
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:25px;
+    font-size:1rem;
+}
+
+#introText{
+    max-width:700px;
+    margin:auto;
+}
+
+.scroll-indicator{
+    margin-top:40px;
+    color:var(--burgundy);
+    font-weight:600;
+}
+/* ==========================================================
+   PART 2A-2
+   BUTTONS + SCRATCH CARD + REVEAL
+========================================================== */
+
+/* ==========================================================
+   PREMIUM BUTTON
+========================================================== */
+
+.btn{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        135deg,
+        var(--burgundy),
+        var(--burgundy-dark)
+    );
+
+    color:#fff;
+
+    padding:14px 36px;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+    transition:all .35s ease;
+
+    box-shadow:
+        0 10px 30px rgba(109,15,44,.22);
+
+}
+
+.btn:hover{
+
+    color:#fff;
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(109,15,44,.32);
+
+}
+
+.btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:60%;
+
+    height:100%;
+
+    transform:skewX(-25deg);
+
+    background:
+        rgba(255,255,255,.25);
+
+    transition:.7s;
+
+}
+
+.btn:hover::before{
+
+    left:130%;
+
+}
+
+/* ==========================================================
+   SCRATCH SECTION
+========================================================== */
+
+#scratchSection{
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            var(--cream)
+        );
+
+}
+
+#scratchSection h2{
+
+    margin-bottom:15px;
+
+}
+
+#scratchSection p{
+
+    margin-bottom:45px;
+
+}
+
+/* ==========================================================
+   SCRATCH WRAPPER
+========================================================== */
+
+.scratch-wrapper{
+
+    position:relative;
+
+    width:340px;
+
+    height:170px;
+
+    margin:auto;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.14);
+
+    border:
+        2px solid rgba(201,162,39,.35);
+
+}
+
+/* ==========================================================
+   SCRATCH CANVAS
+========================================================== */
+
+#scratchCanvas{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    cursor:pointer;
+
+    z-index:10;
+
+    touch-action:none;
+
+}
+
+/* ==========================================================
+   REVEAL PANEL
+========================================================== */
+
+#scratchReveal{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--burgundy),
+            var(--burgundy-dark)
+        );
+
+    color:#fff;
+
+    z-index:1;
+
+    text-align:center;
+
+    overflow:hidden;
+
+}
+
+/* Decorative Glow */
+
+#scratchReveal::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    top:-120px;
+
+    right:-80px;
+
+}
+
+#scratchReveal::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+
+    height:170px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.05);
+
+    bottom:-70px;
+
+    left:-60px;
+
+}
+
+/* ==========================================================
+   WEDDING DATE
+========================================================== */
+
+#weddingDate{
+
+    position:relative;
+
+    z-index:5;
+
+    color:#fff;
+
+    font-size:2.3rem;
+
+    margin:0;
+
+    text-shadow:
+        0 4px 10px rgba(0,0,0,.25);
+
+}
+
+#scratchReveal small{
+
+    position:relative;
+
+    z-index:5;
+
+    margin-top:12px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    opacity:.85;
+
+}
+
+/* ==========================================================
+   REVEAL ANIMATION
+========================================================== */
+
+.scratch-wrapper.revealed{
+
+    animation:
+        revealPop .6s ease;
+
+}
+
+.scratch-wrapper.revealed #scratchReveal{
+
+    animation:
+        glowReveal 1.2s ease infinite alternate;
+
+}
+
+/* ==========================================================
+   SPARKLE LAYER
+========================================================== */
+
+.sparkle{
+
+    position:absolute;
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:var(--gold);
+
+    pointer-events:none;
+
+    opacity:0;
+
+}
+
+.sparkle.show{
+
+    animation:
+        sparklePop .9s ease forwards;
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media(max-width:768px){
+
+    .scratch-wrapper{
+
+        width:300px;
+
+        height:150px;
+
+    }
+
+    #weddingDate{
+
+        font-size:1.8rem;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .scratch-wrapper{
+
+        width:270px;
+
+        height:140px;
+
+    }
+
+    #weddingDate{
+
+        font-size:1.55rem;
+
+    }
+
+}
+/* ==========================================================
+   PART 2A-2
+   BUTTONS + SCRATCH CARD + REVEAL
+========================================================== */
+
+/* ==========================================================
+   PREMIUM BUTTON
+========================================================== */
+
+.btn{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        135deg,
+        var(--burgundy),
+        var(--burgundy-dark)
+    );
+
+    color:#fff;
+
+    padding:14px 36px;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+    transition:all .35s ease;
+
+    box-shadow:
+        0 10px 30px rgba(109,15,44,.22);
+
+}
+
+.btn:hover{
+
+    color:#fff;
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(109,15,44,.32);
+
+}
+
+.btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:60%;
+
+    height:100%;
+
+    transform:skewX(-25deg);
+
+    background:
+        rgba(255,255,255,.25);
+
+    transition:.7s;
+
+}
+
+.btn:hover::before{
+
+    left:130%;
+
+}
+
+/* ==========================================================
+   SCRATCH SECTION
+========================================================== */
+
+#scratchSection{
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            var(--cream)
+        );
+
+}
+
+#scratchSection h2{
+
+    margin-bottom:15px;
+
+}
+
+#scratchSection p{
+
+    margin-bottom:45px;
+
+}
+
+/* ==========================================================
+   SCRATCH WRAPPER
+========================================================== */
+
+.scratch-wrapper{
+
+    position:relative;
+
+    width:340px;
+
+    height:170px;
+
+    margin:auto;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.14);
+
+    border:
+        2px solid rgba(201,162,39,.35);
+
+}
+
+/* ==========================================================
+   SCRATCH CANVAS
+========================================================== */
+
+#scratchCanvas{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    cursor:pointer;
+
+    z-index:10;
+
+    touch-action:none;
+
+}
+
+/* ==========================================================
+   REVEAL PANEL
+========================================================== */
+
+#scratchReveal{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--burgundy),
+            var(--burgundy-dark)
+        );
+
+    color:#fff;
+
+    z-index:1;
+
+    text-align:center;
+
+    overflow:hidden;
+
+}
+
+/* Decorative Glow */
+
+#scratchReveal::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    top:-120px;
+
+    right:-80px;
+
+}
+
+#scratchReveal::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+
+    height:170px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.05);
+
+    bottom:-70px;
+
+    left:-60px;
+
+}
+
+/* ==========================================================
+   WEDDING DATE
+========================================================== */
+
+#weddingDate{
+
+    position:relative;
+
+    z-index:5;
+
+    color:#fff;
+
+    font-size:2.3rem;
+
+    margin:0;
+
+    text-shadow:
+        0 4px 10px rgba(0,0,0,.25);
+
+}
+
+#scratchReveal small{
+
+    position:relative;
+
+    z-index:5;
+
+    margin-top:12px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    opacity:.85;
+
+}
+
+/* ==========================================================
+   REVEAL ANIMATION
+========================================================== */
+
+.scratch-wrapper.revealed{
+
+    animation:
+        revealPop .6s ease;
+
+}
+
+.scratch-wrapper.revealed #scratchReveal{
+
+    animation:
+        glowReveal 1.2s ease infinite alternate;
+
+}
+
+/* ==========================================================
+   SPARKLE LAYER
+========================================================== */
+
+.sparkle{
+
+    position:absolute;
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:var(--gold);
+
+    pointer-events:none;
+
+    opacity:0;
+
+}
+
+.sparkle.show{
+
+    animation:
+        sparklePop .9s ease forwards;
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media(max-width:768px){
+
+    .scratch-wrapper{
+
+        width:300px;
+
+        height:150px;
+
+    }
+
+    #weddingDate{
+
+        font-size:1.8rem;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .scratch-wrapper{
+
+        width:270px;
+
+        height:140px;
+
+    }
+
+    #weddingDate{
+
+        font-size:1.55rem;
+
+    }
+
+}
+/* ==========================================================
+   PART 2B
+   GALLERY • VENUE • COUNTDOWN • INVITATION • THANK YOU
+========================================================== */
+
+/* ==========================================================
+   GALLERY SECTION
+========================================================== */
+
+#gallerySection{
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--cream),
+            var(--ivory)
+        );
+
+    overflow:hidden;
+
+}
+
+.gallery-stack{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(260px,1fr));
+
+    gap:28px;
+
+    margin-top:60px;
+
+}
+
+.gallery-photo{
+
+    width:100%;
+
+    aspect-ratio:4/5;
+
+    object-fit:cover;
+
+    border-radius:22px;
+
+    cursor:pointer;
+
+    transition:
+        transform .45s ease,
+        box-shadow .45s ease;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.12);
+
+}
+
+.gallery-photo:hover{
+
+    transform:
+        translateY(-10px)
+        scale(1.03);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.18);
+
+}
+
+.reveal-photo{
+
+    opacity:0;
+
+    transform:
+        translateY(50px);
+
+}
+
+.reveal-photo.active{
+
+    opacity:1;
+
+    transform:
+        translateY(0);
+
+    transition:
+        all .9s ease;
+
+}
+
+/* ==========================================================
+   VENUE SECTION
+========================================================== */
+
+#venueSection{
+
+    background:#ffffff;
+
+}
+
+.venue-card{
+
+    max-width:760px;
+
+    margin:auto;
+
+    text-align:center;
+
+    position:relative;
+
+}
+
+.venue-card h2{
+
+    margin-bottom:15px;
+
+}
+
+#venueName{
+
+    color:var(--burgundy);
+
+    margin-bottom:18px;
+
+}
+
+#venueAddress{
+
+    margin-bottom:35px;
+
+    font-size:1.08rem;
+
+}
+
+/* ==========================================================
+   CEREMONY & RECEPTION
+========================================================== */
+
+#dateSection,
+#receptionSection{
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--ivory),
+            #ffffff
+        );
+
+}
+
+#ceremonyDate,
+#receptionDate{
+
+    margin-top:15px;
+
+    margin-bottom:12px;
+
+}
+
+#ceremonyTime,
+#receptionTime{
+
+    color:var(--gold);
+
+    font-weight:600;
+
+}
+
+/* ==========================================================
+   COUNTDOWN
+========================================================== */
+
+#countdownSection{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--burgundy),
+            var(--burgundy-dark)
+        );
+
+    color:white;
+
+}
+
+#countdownSection h2{
+
+    color:white;
+
+    margin-bottom:50px;
+
+}
+
+#countdown{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.time-box{
+
+    width:130px;
+
+    height:130px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    backdrop-filter:blur(12px);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:
+        1px solid rgba(255,255,255,.18);
+
+}
+
+.time-box span{
+
+    font-size:2.4rem;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.time-box small{
+
+    margin-top:8px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    opacity:.85;
+
+}
+
+/* ==========================================================
+   INVITATION
+========================================================== */
+
+#invitationSection{
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            var(--cream)
+        );
+
+}
+
+.message-card{
+
+    max-width:850px;
+
+    margin:auto;
+
+    text-align:center;
+
+}
+
+.message-card h2{
+
+    margin-bottom:25px;
+
+}
+
+#invitationText{
+
+    max-width:700px;
+
+    margin:auto;
+
+    line-height:2;
+
+}
+
+/* ==========================================================
+   THANK YOU
+========================================================== */
+
+#thankyouSection{
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--cream),
+            var(--ivory)
+        );
+
+}
+
+#thankyouSection h1{
+
+    margin-bottom:20px;
+
+}
+
+#thankYouText{
+
+    max-width:700px;
+
+    margin:auto;
+
+    margin-bottom:35px;
+
+}
+
+.signature{
+
+    color:var(--burgundy);
+
+    font-family:"Great Vibes",cursive;
+
+    font-size:2.8rem;
+
+}
+
+/* ==========================================================
+   FLOATING DECORATION
+========================================================== */
+
+.floating-flower{
+
+    position:absolute;
+
+    width:90px;
+
+    opacity:.08;
+
+    pointer-events:none;
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:992px){
+
+    .gallery-stack{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .gallery-stack{
+
+        grid-template-columns:1fr;
+
+    }
+
+    #countdown{
+
+        gap:18px;
+
+    }
+
+    .time-box{
+
+        width:100px;
+
+        height:100px;
+
+    }
+
+    .time-box span{
+
+        font-size:2rem;
+
+    }
+
+    .signature{
+
+        font-size:2.2rem;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .venue-card,
+    .message-card{
+
+        padding:35px 22px;
+
+    }
+
+    .time-box{
+
+        width:80px;
+
+        height:80px;
+
+    }
+
+    .time-box span{
+
+        font-size:1.5rem;
+
+    }
+
+    .time-box small{
+
+        font-size:.65rem;
+
+    }
+
+}
+
+
+#journey {
+    position: relative;
+    height: 500vh;
+}
+
+#journey .container {
+    height: 100%;
+}
+
+.journey-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.journey-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.journey-img.active {
+    opacity: 1;
+    transform: scale(1);
+}

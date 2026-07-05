@@ -1,0 +1,39 @@
+{
+  "brideName": "Bride Name",
+  "groomName": "Groom Name",
+
+  "introText": "Together with our families...",
+
+  "weddingDate": "20 December 2026",
+  "weddingTime": "07:00 PM",
+
+  "receptionDate": "22 December 2026",
+  "receptionTime": "06:30 PM",
+
+  "venue": {
+    "name": "Wedding Venue",
+    "address": "Full venue address",
+    "googleMapUrl": "https://maps.google.com/..."
+  },
+
+  "invitationText": "Invitation message...",
+
+  "thankYouText": "Thank you for being part of our happiness.",
+
+  "galleryImages": [
+    "assets/images/couple1.jpg",
+    "assets/images/couple2.jpg",
+    "assets/images/couple3.jpg",
+    "assets/images/couple4.jpg",
+    "assets/images/couple5.jpg"
+  ],
+
+  "music": {
+    "background": "assets/music/background.mp3"
+  },
+
+  "theme": {
+    "primary": "#6D1833",
+    "secondary": "#F8F3EC"
+  }
+}

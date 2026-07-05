@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wedding Invitation</title>
+
+    <meta name="description" content="You're Invited!">
+    <meta property="og:title" content="Wedding Invitation">
+    <meta property="og:description" content="Join us on our special day.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/images/cover.jpg">
+
+    <link rel="icon" href="assets/images/favicon.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animation.css">
+
+    <style>
+        :root {
+            --burgundy: #6b001a;
+            --burgundy-light: #800020;
+            --off-white: #FDFBF7;
+            /* New authentic ivory/cream tones from Image 1 */
+            --envelope-bg: #F4EFE6;      
+            --envelope-dark: #EAE3D5;    
+            --envelope-flap: #F7F3EB;    
+            --gold: #d4af37;
+        }
+
+        /* Prevent scrolling while envelope overlay is active */
+        body.no-scroll {
+            overflow: hidden !important;
+            height: 100vh;
+        }
+
+        /* --- CLASSY ENVELOPE OVERLAY CONTAINER --- */
+        #envelope-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--off-white); 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            /* Combined scale transform, opacity crossfade, and smooth blur */
+            transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 1.2s ease-in-out, 
+                        filter 1.2s ease-in-out,
+                        visibility 1.4s;
+            transform-origin: center center;
+        }
+
+        /* The Realistic Envelope Wrapper (Matches Image 1 Aspect Ratio) */
+        .envelope-wrapper {
+            position: relative;
+            width: 420px;
+            height: 280px;
+            background-color: var(--envelope-bg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08), 0 5px 15px rgba(0,0,0,0.04);
+            cursor: pointer;
+            border-radius: 2px;
+            perspective: 1000px;
+        }
+
+        /* Overlapping Side and Bottom Folds (Recreated to match Image 1 geometry) */
+        .envelope-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            border-width: 140px 210px;
+            border-style: solid;
+            border-color: transparent var(--envelope-dark) var(--envelope-dark) var(--envelope-dark);
+            z-index: 2;
+            border-radius: 2px;
+        }
+
+        /* Inner Invitation Card peak showing through */
+        .envelope-inner-card {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            width: 360px;
+            height: 120px;
+            background-color: var(--off-white);
+            border: 1px dashed rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        /* Envelope Top Flap (Pointing beautifully downward exactly to center) */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-width: 142px 210px;
+            border-style: solid;
+            border-color: var(--envelope-flap) transparent transparent transparent;
+            transform-origin: top center;
+            transition: transform 1.0s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+        }
+
+        /* High Fidelity Realistic Wax Seal */
+        .wax-seal-btn {
+            position: absolute;
+            top: 112px;
+            left: 180px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 35% 35%, #9c1a32 0%, #540212 100%);
+            border-radius: 48% 52% 51% 49% / 53% 48% 52% 47%;
+            box-shadow: 
+                0 6px 12px rgba(0,0,0,0.35), 
+                inset -3px -3px 7px rgba(0,0,0,0.6), 
+                inset 3px 3px 5px rgba(255,255,255,0.25);
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+        }
+
+        /* Concentric inner wax ring ridge */
+        .wax-seal-btn::before {
+            content: "";
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 3px solid #42010d;
+            background: radial-gradient(circle, #800020 0%, #610114 100%);
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.15), 1px 2px 3px rgba(0,0,0,0.4);
+        }
+
+        /* Gold Heart Centerpiece Custom Stamped Details */
+        .wax-seal-btn::after {
+            content: "♥"; 
+            position: relative;
+            font-size: 22px;
+            color: #E5C158;
+            text-shadow: -1px -1px 1px #7A5807, 1px 1px 1px rgba(255,255,255,0.4);
+            z-index: 5;
+        }
+
+        /* Soft elegant pulse reminder to interact */
+        .wax-seal-btn.pulse {
+            animation: elegant-pulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes elegant-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); box-shadow: 0 10px 20px rgba(84,2,18, 0.25), inset -3px -3px 7px rgba(0,0,0,0.6); }
+            100% { transform: scale(1); }
+        }
+
+        /* Typography Styling Matching the Prompt Image */
+        .overlay-tap-text {
+            color: #8C8479;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: opacity 0.4s ease;
+        }
+
+        /* --- REVEAL CONTAINER STATES --- */
+        .envelope-wrapper.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .envelope-wrapper.open .wax-seal-btn {
+            transform: scale(0) rotate(-45deg);
+            opacity: 0;
+        }
+
+        /* Triggered zoom & graceful fade behavior */
+        #envelope-overlay.zoom-fade-out {
+            transform: scale(3.5); /* Immersive zooming view effect */
+            opacity: 0;
+            filter: blur(4px);    /* Soft cinematic defocus */
+            visibility: hidden;
+        }
+
+        /* Initial application hide state wrapper */
+        .main-content-hidden {
+            opacity: 0;
+            transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .main-content-visible {
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body class="no-scroll">
+
+    <div id="envelope-overlay">
+        <div class="envelope-wrapper" id="overlayEnvelope">
+            <div class="envelope-inner-card"></div>
+            <div class="envelope-flap"></div>
+            <div class="wax-seal-btn pulse" id="overlaySeal"></div>
+        </div>
+        <p class="overlay-tap-text mt-5">Tap the wax seal to open</p>
+    </div>
+
+    <div id="masterWrapper" class="main-content-hidden">
+
+        <canvas id="petalCanvas"></canvas>
+
+        <div id="loader">
+            <div class="loader-content">
+                <h2>Preparing Something Beautiful...</h2>
+            </div>
+        </div>
+
+        <div id="scrollProgress"></div>
+
+        <section id="hero" class="section hero-section d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <div class="intro-container" data-aos="fade-up">
+                            <h2 class="intro-serif-title">|| শুভ পরিণয় ||</h2>
+                            <!-- A beautiful, script-font call to action/statement -->
+							<h1 class="intro-script-title" style="font-size: 3.5rem; margin: 15px 0;">An Auspicious Union</h1>
+                            <p class="intro-message">
+                                As the auspicious strains of the Shehnai fill the air and the sacred flames bear witness, our souls unite in an eternal bond of love. Because your blessings have shaped our lives, we cordially invite you to witness our Shubho Drishti and grace our auspicious forever.e you to join us as we exchange our vows and begin our beautiful forever together.
+                            </p>
+                            <div class="intro-scroll-hint">
+                                Continue Scrolling For Info <br> ↓
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="letterSection" class="section">
+            <div class="container">
+                <div class="letter-card" data-aos="fade-up">
+                    <h1 id="coupleName">Riya ❤️ Subhradip</h1>
+                    <h3 class="subtitle">Together with our families</h3>
+                    <p id="introText">Invitation message will appear here.</p>
+                    <div class="scroll-indicator">
+                        ↓ Scroll to see the magic ↓
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="scratchSection" class="section">
+            <div class="container text-center">
+                <h2 data-aos="fade-up">A Little Surprise Awaits</h2>
+                <p>Scratch to reveal our wedding date.</p>
+                <div class="scratch-wrapper">
+                    <canvas id="scratchCanvas"></canvas>
+                    <div id="scratchReveal">
+                        <h1 id="weddingDate">25 November 2026</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey" class="section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">Our Journey</h2>
+                <div class="journey-sticky">
+
+					<img src="assets/images/cat1.jpg" class="journey-img active">
+					<img src="assets/images/cat2.jpg" class="journey-img">
+					<img src="assets/images/cat3.jpg" class="journey-img">
+					<img src="assets/images/cat4.jpg" class="journey-img">
+					<img src="assets/images/cat5.jpg" class="journey-img">
+
+				</div>
+            </div>
+        </section>
+
+        <section id="venueSection" class="section">
+            <div class="container">
+                <div class="venue-card" data-aos="zoom-in">
+                    <h2>Venue</h2>
+                    <h3 id="venueName">Wedding Venue</h3>
+                    <p id="venueAddress">Bhim Rao Ambedkar, Sreepally, </br> Kolkata, North Barrackpur, </br> West Bengal 743122</p>
+                    <a id="directionButton" href="https://www.google.com/maps/search/?api=1&query=22.7814255,88.3722093" target="_blank" class="btn btn-lg">Get Directions</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="dateSection" class="section">
+            <div class="container text-center">
+                <h2>Wedding Ceremony</h2>
+                <h1 id="ceremonyDate">25 November, 2026</h1>
+                <h3 class="ceremonyTime">06:00 PM</h3>
+            </div>
+        </section>
+
+        <section id="receptionSection" class="section">
+            <div class="container text-center">
+                <h2>Reception</h2>
+                <h1 id="receptionDate">27 November, 2026</h1>
+                <h3 id="receptionTime">06:30 PM</h3>
+            </div>
+        </section>
+
+        <section id="countdownSection" class="section">
+            <div class="container">
+                <h2 class="text-center">Countdown</h2>
+                <div id="countdown">
+                    <div class="time-box"><span id="days">00</span><small>Days</small></div>
+                    <div class="time-box"><span id="hours">00</span><small>Hours</small></div>
+                    <div class="time-box"><span id="minutes">00</span><small>Minutes</small></div>
+                    <div class="time-box"><span id="seconds">00</span><small>Seconds</small></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="invitationSection" class="section">
+            <div class="container">
+                <div class="message-card">
+                    <h2>Invitation</h2>
+                    <p id="invitationText">Together with our parents, grandparents, and the entire extended family, we cordially invite you to be a part of our beautiful new beginning.<br><br>As we take our sacred vows amidst the sounding of the Shankha and the blessings of our elders, your esteemed presence and good wishes are what will truly make our celebration complete.<br><br>Please join us with your family to share our joy, enjoy the festivities, and bless us as we embark on this lifelong journey of love and togetherness."</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="thankyouSection" class="section">
+            <div class="container text-center">
+                <h1>Thank You</h1>
+                <p id="thankYouText">Thank you for being a part of our happiness.</p>
+                <h2 class="signature">❤️ Riya & Subhradip ❤️</h2>
+            </div>
+        </section>
+
+        <audio id="bgMusic" loop>
+            <source src="assets/music/background.mp3" type="audio/mpeg">
+        </audio>
+
+    </div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: false
+        });
+    </script>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/envelope.js"></script>
+    <script src="assets/js/flowerBlast.js"></script>
+    <script src="assets/js/scratch.js"></script>
+    <script src="assets/js/petals.js"></script>
+    <script src="assets/js/gallery.js"></script>
+
+    <script>
+        document.getElementById('overlayEnvelope').addEventListener('click', function() {
+        const envelope = this;
+        const overlay = document.getElementById('envelope-overlay');
+        const tapText = document.querySelector('.overlay-tap-text');
+        const masterWrapper = document.getElementById('masterWrapper');
+        const body = document.body;
+        const bgMusic = document.getElementById('bgMusic');
+
+        // Prevent multi-click triggers during execution
+        if(envelope.classList.contains('open')) return;
+
+        // 1. Run sophisticated envelope flap opening animation
+        envelope.classList.add('open');
+        if(tapText) tapText.style.opacity = '0';
+
+        // 2. Wait slightly for the flap to throw backwards, then trigger the cinematic zoom + fade-out
+        setTimeout(() => {
+            overlay.classList.add('zoom-fade-out');
+            body.classList.remove('no-scroll');
+            masterWrapper.classList.add('main-content-visible');
+            
+            // Background music fallback playback initialization
+            if (bgMusic) {
+                bgMusic.play().catch(error => console.log("Audio playback notice: Handled user interaction gesture constraint successfully."));
+            }
+        }, 900); // Triggered halfway through standard 1.0s flap rotation 
+    });
+    </script>
+
+</body>
+</html>
