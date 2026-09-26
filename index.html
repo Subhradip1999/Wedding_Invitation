@@ -212,53 +212,49 @@
         }
 
 		/* for 5 img*/
-		.journey-section {
+		/* Ensure section and container have layout dimensions */
+		#journey.section {
 		  padding: 60px 0;
-		  position: relative;
+		  display: block;
 		}
 		
 		.journey-wrapper {
 		  display: flex;
 		  justify-content: center;
 		  align-items: center;
-		  padding: 20px 0;
+		  width: 100%;
 		}
 		
-		/* Polaroid Grid Container */
+		/* Grid container MUST have an explicit height and position */
 		.polaroid-grid {
 		  position: relative;
 		  width: 100%;
 		  max-width: 900px;
-		  height: 520px;
-		  display: flex;
-		  justify-content: center;
-		  align-items: center;
+		  height: 550px; /* Fixed height so absolute children are visible */
+		  margin: 0 auto;
 		}
 		
-		/* Individual Polaroid Styling */
+		/* Base Polaroid Card */
 		.polaroid-card {
 		  position: absolute;
 		  background: #ffffff;
-		  padding: 12px 12px 35px 12px;
-		  border: 3px solid #000000;
-		  border-radius: 4px;
-		  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+		  padding: 10px 10px 30px 10px;
+		  border: 2px solid #000000;
+		  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 		  
-		  /* Smooth drop-in transition */
-		  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.27), opacity 0.4s ease-out;
+		  /* Smooth drop animation */
+		  transition: opacity 0.5s ease, transform 0.5s ease;
 		  
-		  /* Initial off-screen state */
+		  /* Initial state: Hidden and shifted up */
 		  opacity: 0;
-		  transform: translateY(-100px) scale(1.2) rotate(-10deg);
-		  pointer-events: none;
+		  transform: translateY(-80px) scale(0.9);
 		}
 		
 		.polaroid-frame {
-		  width: 200px;
-		  height: 180px;
+		  width: 180px;
+		  height: 160px;
+		  background-color: #ddd;
 		  overflow: hidden;
-		  background-color: #eee;
-		  border: 2px solid #000;
 		}
 		
 		.polaroid-frame img {
@@ -268,56 +264,34 @@
 		  display: block;
 		}
 		
-		/* --- Position Layout --- */
-		
-		/* 1. Top Left */
+		/* Positions matching 5-spot layout */
 		.polaroid-card.item-1 { left: 5%; top: 5%; }
-		
-		/* 2. Bottom Left */
 		.polaroid-card.item-2 { left: 5%; bottom: 5%; }
 		
-		/* 3. Center Photo */
-		.polaroid-card.item-3 {
-		  left: 50%;
-		  top: 50%;
-		  transform: translate(-50%, -50%) translateY(-100px) scale(1.2);
-		  z-index: 10;
+		.polaroid-card.item-3 { 
+		  left: 50%; 
+		  top: 50%; 
+		  transform: translate(-50%, -50%) translateY(-80px) scale(0.9); 
+		  z-index: 5; 
 		}
 		.polaroid-card.item-3 .polaroid-frame {
-		  width: 230px;
-		  height: 200px;
+		  width: 210px;
+		  height: 180px;
 		}
 		
-		/* 4. Top Right */
 		.polaroid-card.item-4 { right: 5%; top: 5%; }
-		
-		/* 5. Bottom Right */
 		.polaroid-card.item-5 { right: 5%; bottom: 5%; }
 		
-		/* --- Active Placed State --- */
+		/* Visible state */
 		.polaroid-card.placed {
 		  opacity: 1;
-		  pointer-events: auto;
 		}
 		
-		.polaroid-card.item-1.placed { transform: translateY(0) scale(1) rotate(-2deg); }
-		.polaroid-card.item-2.placed { transform: translateY(0) scale(1) rotate(2deg); }
-		.polaroid-card.item-3.placed { transform: translate(-50%, -50%) scale(1.05) rotate(0deg); }
-		.polaroid-card.item-4.placed { transform: translateY(0) scale(1) rotate(2deg); }
-		.polaroid-card.item-5.placed { transform: translateY(0) scale(1) rotate(-2deg); }
-		
-		/* Hover effects */
-		.polaroid-card.placed:hover {
-		  z-index: 20;
-		  transform: scale(1.08) rotate(0deg) !important;
-		  transition: transform 0.3s ease;
-		}
-		
-		@media (max-width: 768px) {
-		  .polaroid-grid { height: 400px; }
-		  .polaroid-frame { width: 120px; height: 110px; }
-		  .polaroid-card.item-3 .polaroid-frame { width: 140px; height: 130px; }
-		}
+		.polaroid-card.item-1.placed { transform: translateY(0) rotate(-3deg); }
+		.polaroid-card.item-2.placed { transform: translateY(0) rotate(2deg); }
+		.polaroid-card.item-3.placed { transform: translate(-50%, -50%) rotate(0deg); }
+		.polaroid-card.item-4.placed { transform: translateY(0) rotate(3deg); }
+		.polaroid-card.item-5.placed { transform: translateY(0) rotate(-2deg); }
     </style>
 
 </head>
@@ -560,74 +534,53 @@
 
 	// 5 img animation
 		document.addEventListener("DOMContentLoaded", () => {
-		  const section = document.getElementById("journey");
+		  const journeySection = document.getElementById("journey");
 		  const cards = document.querySelectorAll(".polaroid-card");
-		  
-		  let animationTriggered = false;
-		  let animationFinished = false;
-		  let timeouts = [];
 		
-		  // Function to show all cards instantly if skipped
-		  function skipAnimation() {
-		    if (animationFinished) return;
-		    
-		    // Clear scheduled timeouts
-		    timeouts.forEach(timeoutId => clearTimeout(timeoutId));
-		    timeouts = [];
+		  if (!journeySection || cards.length === 0) return;
 		
-		    // Immediately reveal all photos
+		  let animationStarted = false;
+		
+		  function showAllCards() {
 		    cards.forEach(card => card.classList.add("placed"));
-		    animationFinished = true;
-		
-		    // Clean up scroll listener
-		    window.removeEventListener("scroll", handleScrollSkip);
 		  }
 		
-		  // Detect scroll event during active animation
-		  function handleScrollSkip() {
-		    if (animationTriggered && !animationFinished) {
-		      skipAnimation();
-		    }
-		  }
-		
-		  // Start sequential automatic photo placement (2.5 sec total)
-		  function startAutoAnimation() {
-		    animationTriggered = true;
-		    window.addEventListener("scroll", handleScrollSkip, { passive: true });
-		
-		    const totalDuration = 2500; // 2.5 seconds total duration
-		    const delayPerPhoto = totalDuration / cards.length; // ~500ms between each
+		  function startSequence() {
+		    if (animationStarted) return;
+		    animationStarted = true;
 		
 		    cards.forEach((card, index) => {
-		      const timer = setTimeout(() => {
+		      setTimeout(() => {
 		        card.classList.add("placed");
-		        
-		        // Mark finished on last card
-		        if (index === cards.length - 1) {
-		          animationFinished = true;
-		          window.removeEventListener("scroll", handleScrollSkip);
-		        }
-		      }, index * delayPerPhoto);
-		
-		      timeouts.push(timer);
+		      }, index * 400); // 400ms delay between drops (2 seconds total)
 		    });
 		  }
 		
-		  // Observer to trigger animation when section comes into view
-		  const observer = new IntersectionObserver(
-		    (entries) => {
-		      entries.forEach(entry => {
-		        if (entry.isIntersecting && !animationTriggered) {
-		          startAutoAnimation();
-		          observer.disconnect(); // Only trigger auto-play once
-		        }
-		      });
-		    },
-		    { threshold: 0.4 } // Triggers when 40% of section is visible
-		  );
+		  // Skip animation on scroll action
+		  function onScrollSkip() {
+		    if (animationStarted) {
+		      showAllCards();
+		      window.removeEventListener("scroll", onScrollSkip);
+		    }
+		  }
 		
-		  if (section) {
-		    observer.observe(section);
+		  // Intersection Observer trigger
+		  const observer = new IntersectionObserver((entries) => {
+		    entries.forEach(entry => {
+		      if (entry.isIntersecting) {
+		        startSequence();
+		        window.addEventListener("scroll", onScrollSkip, { passive: true });
+		        observer.disconnect();
+		      }
+		    });
+		  }, { threshold: 0.2 });
+		
+		  observer.observe(journeySection);
+		
+		  // Safety Fallback: If section is already visible on load, run immediately
+		  const rect = journeySection.getBoundingClientRect();
+		  if (rect.top < window.innerHeight && rect.bottom >= 0) {
+		    startSequence();
 		  }
 		});
     </script>
