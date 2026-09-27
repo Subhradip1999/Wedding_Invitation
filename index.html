@@ -212,47 +212,71 @@
         }
 
 		/* for 5 img*/
-		/* Ensure section and container have layout dimensions */
-		#journey.section {
-		  padding: 60px 0;
-		  display: block;
+		/* Compact section styling with minimal padding */
+		#journey.journey-section {
+		  padding: 40px 0;
+		  position: relative;
+		  overflow: hidden;
 		}
 		
 		.journey-wrapper {
+		  position: relative;
 		  display: flex;
 		  justify-content: center;
 		  align-items: center;
 		  width: 100%;
 		}
 		
-		/* Grid container MUST have an explicit height and position */
+		/* Dim backdrop when a photo is maximized */
+		.journey-backdrop {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background: rgba(0, 0, 0, 0.35);
+		  opacity: 0;
+		  pointer-events: none;
+		  transition: opacity 0.3s ease;
+		  z-index: 15;
+		  border-radius: 8px;
+		}
+		
+		.journey-backdrop.active {
+		  opacity: 1;
+		  pointer-events: auto;
+		}
+		
+		/* Compact layout height so no blank space exists below/above */
 		.polaroid-grid {
 		  position: relative;
 		  width: 100%;
-		  max-width: 900px;
-		  height: 550px; /* Fixed height so absolute children are visible */
+		  max-width: 850px;
+		  height: 480px; 
 		  margin: 0 auto;
 		}
 		
-		/* Base Polaroid Card */
+		/* Base Polaroid styling */
 		.polaroid-card {
 		  position: absolute;
 		  background: #ffffff;
 		  padding: 10px 10px 30px 10px;
 		  border: 2px solid #000000;
-		  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+		  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+		  cursor: pointer;
 		  
-		  /* Smooth drop animation */
-		  transition: opacity 0.5s ease, transform 0.5s ease;
+		  /* Smooth transitions for drop-in and maximize click */
+		  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), z-index 0.2s ease;
 		  
-		  /* Initial state: Hidden and shifted up */
+		  /* Initial off-screen state */
 		  opacity: 0;
-		  transform: translateY(-80px) scale(0.9);
+		  transform: translateY(-70px) scale(0.9);
+		  z-index: 1;
 		}
 		
 		.polaroid-frame {
-		  width: 180px;
-		  height: 160px;
+		  width: 170px;
+		  height: 150px;
 		  background-color: #ddd;
 		  overflow: hidden;
 		}
@@ -264,25 +288,25 @@
 		  display: block;
 		}
 		
-		/* Positions matching 5-spot layout */
-		.polaroid-card.item-1 { left: 5%; top: 5%; }
-		.polaroid-card.item-2 { left: 5%; bottom: 5%; }
+		/* Grid layout positioning */
+		.polaroid-card.item-1 { left: 4%; top: 4%; }
+		.polaroid-card.item-2 { left: 4%; bottom: 4%; }
 		
 		.polaroid-card.item-3 { 
 		  left: 50%; 
 		  top: 50%; 
-		  transform: translate(-50%, -50%) translateY(-80px) scale(0.9); 
+		  transform: translate(-50%, -50%) translateY(-70px) scale(0.9); 
 		  z-index: 5; 
 		}
 		.polaroid-card.item-3 .polaroid-frame {
-		  width: 210px;
-		  height: 180px;
+		  width: 190px;
+		  height: 165px;
 		}
 		
-		.polaroid-card.item-4 { right: 5%; top: 5%; }
-		.polaroid-card.item-5 { right: 5%; bottom: 5%; }
+		.polaroid-card.item-4 { right: 4%; top: 4%; }
+		.polaroid-card.item-5 { right: 4%; bottom: 4%; }
 		
-		/* Visible state */
+		/* Placed state */
 		.polaroid-card.placed {
 		  opacity: 1;
 		}
@@ -292,6 +316,36 @@
 		.polaroid-card.item-3.placed { transform: translate(-50%, -50%) rotate(0deg); }
 		.polaroid-card.item-4.placed { transform: translateY(0) rotate(3deg); }
 		.polaroid-card.item-5.placed { transform: translateY(0) rotate(-2deg); }
+		
+		/* Quick Hover effect before click */
+		.polaroid-card.placed:not(.expanded):hover {
+		  z-index: 10;
+		  transform: scale(1.05) rotate(0deg);
+		}
+		
+		/* --- Click/Maximizing State (Focus Mode) --- */
+		.polaroid-card.expanded {
+		  z-index: 30 !important;
+		  left: 50% !important;
+		  top: 50% !important;
+		  right: auto !important;
+		  bottom: auto !important;
+		  transform: translate(-50%, -50%) scale(1.4) rotate(0deg) !important;
+		  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+		}
+		
+		.polaroid-card.expanded .polaroid-frame {
+		  width: 220px;
+		  height: 190px;
+		}
+		
+		/* Responsive adjust for small mobile screens */
+		@media (max-width: 768px) {
+		  .polaroid-grid { height: 380px; }
+		  .polaroid-frame { width: 110px; height: 100px; }
+		  .polaroid-card.item-3 .polaroid-frame { width: 130px; height: 115px; }
+		  .polaroid-card.expanded { transform: translate(-50%, -50%) scale(1.25) rotate(0deg) !important; }
+		}
     </style>
 
 </head>
@@ -385,36 +439,34 @@
 		    <h2 class="section-title" data-aos="fade-up">Our Journey</h2>
 		    
 		    <div class="journey-wrapper">
+		      <!-- Dim overlay when a photo is clicked/focused -->
+		      <div class="journey-backdrop" id="journeyBackdrop"></div>
+		
 		      <div class="polaroid-grid">
-		        <!-- Photo 1: Top-Left (Red) -->
 		        <div class="polaroid-card item-1">
 		          <div class="polaroid-frame">
 		            <img src="assets/images/cat1.jpg" alt="Journey 1">
 		          </div>
 		        </div>
 		
-		        <!-- Photo 2: Bottom-Left (Green) -->
 		        <div class="polaroid-card item-2">
 		          <div class="polaroid-frame">
 		            <img src="assets/images/cat2.jpg" alt="Journey 2">
 		          </div>
 		        </div>
 		
-		        <!-- Photo 3: Center Highlight (Blue) -->
 		        <div class="polaroid-card item-3">
 		          <div class="polaroid-frame">
 		            <img src="assets/images/cat3.jpg" alt="Journey 3">
 		          </div>
 		        </div>
 		
-		        <!-- Photo 4: Top-Right (Yellow) -->
 		        <div class="polaroid-card item-4">
 		          <div class="polaroid-frame">
 		            <img src="assets/images/cat4.jpg" alt="Journey 4">
 		          </div>
 		        </div>
 		
-		        <!-- Photo 5: Bottom-Right (Orange) -->
 		        <div class="polaroid-card item-5">
 		          <div class="polaroid-frame">
 		            <img src="assets/images/cat5.jpg" alt="Journey 5">
@@ -424,7 +476,6 @@
 		    </div>
 		  </div>
 		</section>
-
         <section id="venueSection" class="section">
             <div class="container">
                 <div class="venue-card" data-aos="zoom-in">
@@ -536,6 +587,7 @@
 		document.addEventListener("DOMContentLoaded", () => {
 		  const journeySection = document.getElementById("journey");
 		  const cards = document.querySelectorAll(".polaroid-card");
+		  const backdrop = document.getElementById("journeyBackdrop");
 		
 		  if (!journeySection || cards.length === 0) return;
 		
@@ -552,11 +604,11 @@
 		    cards.forEach((card, index) => {
 		      setTimeout(() => {
 		        card.classList.add("placed");
-		      }, index * 400); // 400ms delay between drops (2 seconds total)
+		      }, index * 400); // 400ms delay between drops
 		    });
 		  }
 		
-		  // Skip animation on scroll action
+		  // Skip auto animation if user scrolls
 		  function onScrollSkip() {
 		    if (animationStarted) {
 		      showAllCards();
@@ -564,7 +616,7 @@
 		    }
 		  }
 		
-		  // Intersection Observer trigger
+		  // Intersection Observer for scroll entrance
 		  const observer = new IntersectionObserver((entries) => {
 		    entries.forEach(entry => {
 		      if (entry.isIntersecting) {
@@ -577,10 +629,33 @@
 		
 		  observer.observe(journeySection);
 		
-		  // Safety Fallback: If section is already visible on load, run immediately
-		  const rect = journeySection.getBoundingClientRect();
-		  if (rect.top < window.innerHeight && rect.bottom >= 0) {
-		    startSequence();
+		  // --- Click to Maximize Photo Feature ---
+		  function resetExpandedCard() {
+		    cards.forEach(c => c.classList.remove("expanded"));
+		    if (backdrop) backdrop.classList.remove("active");
+		  }
+		
+		  cards.forEach(card => {
+		    card.addEventListener("click", (e) => {
+		      e.stopPropagation();
+		      
+		      // If already expanded, close it
+		      if (card.classList.contains("expanded")) {
+		        resetExpandedCard();
+		        return;
+		      }
+		
+		      // Close any other expanded photo and expand clicked one
+		      cards.forEach(c => c.classList.remove("expanded"));
+		      card.classList.add("expanded");
+		      if (backdrop) backdrop.classList.add("active");
+		    });
+		  });
+		
+		  // Close maximized photo when clicking outside or on backdrop
+		  document.addEventListener("click", resetExpandedCard);
+		  if (backdrop) {
+		    backdrop.addEventListener("click", resetExpandedCard);
 		  }
 		});
     </script>
