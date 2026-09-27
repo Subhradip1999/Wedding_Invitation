@@ -2194,11 +2194,11 @@ RESPONSIVE FOUNDATION
 
 #journey {
     position: relative;
-    height: 500vh;
+    height: 100vh;
 }
 
 #journey .container {
-    height: 50%;
+    height: 100%;
 }
 
 .journey-sticky {
