@@ -346,6 +346,19 @@
 		  .polaroid-card.item-3 .polaroid-frame { width: 130px; height: 115px; }
 		  .polaroid-card.expanded { transform: translate(-50%, -50%) scale(1.25) rotate(0deg) !important; }
 		}
+		
+		#scratchReveal h1 {
+			animation: revealGlow 1.5s ease-in-out infinite alternate;
+		}
+
+		@keyframes revealGlow {
+			0% {
+				text-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
+			}
+			100% {
+				text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 30px rgba(107, 0, 26, 0.4);
+			}
+		}
     </style>
 
 </head>
@@ -528,12 +541,12 @@
             <div class="container text-center">
                 <h1>Thank You</h1>
                 <p id="thankYouText">Thank you for being a part of our happiness.</p>
-                <h2 class="signature">❤️ Riya & Subhradip ❤️</h2>
+                <h2 class="signature">❤️ <br> Riya & Subhradip <br>❤️</h2>
             </div>
         </section>
 
         <audio id="bgMusic" loop>
-            <source src="assets/music/background.mp3" type="audio/mpeg">
+            <source src="assets/music/bg_music_perfect.mp3" type="audio/mpeg">
         </audio>
 
     </div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -555,6 +568,22 @@
     <script src="assets/js/gallery.js"></script>
 
     <script>
+		// 1. Force the browser NOT to restore the previous scroll position on reload
+		if ('scrollRestoration' in history) {
+			history.scrollRestoration = 'manual';
+		}
+
+		// 2. Scroll to top immediately when script loads and on window load
+		window.scrollTo(0, 0);
+
+		window.addEventListener('beforeunload', () => {
+			window.scrollTo(0, 0);
+		});
+
+		document.addEventListener('DOMContentLoaded', () => {
+			window.scrollTo(0, 0);
+		});
+		// Envelope Click Animation Handler
         document.getElementById('overlayEnvelope').addEventListener('click', function() {
         const envelope = this;
         const overlay = document.getElementById('envelope-overlay');
@@ -562,6 +591,9 @@
         const masterWrapper = document.getElementById('masterWrapper');
         const body = document.body;
         const bgMusic = document.getElementById('bgMusic');
+		
+		// Reset scroll position again right as the envelope opens
+        window.scrollTo(0, 0);
 
         // Prevent multi-click triggers during execution
         if(envelope.classList.contains('open')) return;
@@ -575,6 +607,9 @@
             overlay.classList.add('zoom-fade-out');
             body.classList.remove('no-scroll');
             masterWrapper.classList.add('main-content-visible');
+			
+			// Re-confirm scroll stays at top after overlay removal
+            window.scrollTo(0, 0);
             
             // Background music fallback playback initialization
             if (bgMusic) {
