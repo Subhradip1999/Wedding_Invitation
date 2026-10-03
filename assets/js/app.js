@@ -278,7 +278,7 @@ countdown
 ====================================================*/
 document.addEventListener("DOMContentLoaded", function () {
     // 1. Set your wedding date and time here (YYYY-MM-DDTHH:MM:SS format)
-    const weddingDate = new Date("2026-11-25T18:00:00").getTime();
+    const weddingDate = new Date("2026-11-27T18:30:00").getTime();
 
     // 2. Update the countdown every 1 second
     const countdownInterval = setInterval(function () {
